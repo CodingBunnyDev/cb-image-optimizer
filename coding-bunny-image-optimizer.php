@@ -3,8 +3,8 @@
 /**
  * Plugin Name: CodingBunny Image Optimizer
  * Plugin URI:  https://coding-bunny.com/image-optimizer/
- * Description: Speed up your site! Compress and optimise images automatically when you upload them.
- * Version:     1.0.0
+ * Description: Speed up your site! Compress and optimize images automatically.
+ * Version:     1.1.0
  * Requires at least: 6.0
  * Requires PHP: 8.0
  * Author:      CodingBunny
@@ -28,6 +28,7 @@ $files_to_include = [
     'licence-validation.php',// Licence page
 	'updates-check.php',     // Updates check
 	'settings-page.php',     // Defines the settings page for the plugin
+	'bulk-edit.php',     	 // Bulk edit function
     'enqueue-scripts.php'    // Enqueues the necessary CSS and JS files
 ];
 

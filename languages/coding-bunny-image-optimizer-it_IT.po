@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodingBunny Image Optimizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-18 09:02+0000\n"
-"PO-Revision-Date: 2024-10-18 11:09+0200\n"
+"POT-Creation-Date: 2024-11-06 15:25+0000\n"
+"PO-Revision-Date: 2024-11-06 16:27+0100\n"
 "Last-Translator: Matteo De Maria <info@dmmwebdesign.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Loco-Version: 2.6.11; wp-6.6.2\n"
 "X-Domain: coding-bunny-image-optimizer\n"
 
-#: inc/updates-check.php:57
+#: inc/updates-check.php:55
 #, php-format
 msgid ""
 "A new version (%s) of the <b>CodingBunny Image Optimizer</b> plugin is "
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Error: Unable to save resized image for file %s"
 msgstr "Errore: Impossibile salvare l’immagine ridimensionata per il file %s"
 
-#: coding-bunny-image-optimizer.php:64
+#: coding-bunny-image-optimizer.php:65
 msgid "Get CodingBunny Image Optimizer PRO!"
 msgstr "Ottieni CodingBunny Image Optimizer PRO!"
 
@@ -108,11 +108,11 @@ msgid "Having problems with your licence? Contact our support: "
 msgstr "Hai problemi con la tua licenza? Contatta il nostro supporto: "
 
 #. Author URI of the plugin
-msgid "https://www.coding-bunny.com"
+msgid "https://coding-bunny.com"
 msgstr "https://www.coding-bunny.com"
 
 #. URI of the plugin
-msgid "https://www.coding-bunny.com/image-optimizer/"
+msgid "https://coding-bunny.com/image-optimizer/"
 msgstr "https://www.coding-bunny.com/image-optimizer/"
 
 #. Page title
@@ -176,17 +176,14 @@ msgid "Sets the maximum size of width and height of uploaded images."
 msgstr ""
 "Imposta le dimensioni massime di larghezza e altezza delle immagini caricate."
 
-#: coding-bunny-image-optimizer.php:53
+#: coding-bunny-image-optimizer.php:54
 msgid "Settings"
 msgstr "Impostazioni"
 
 #. Description of the plugin
-msgid ""
-"Speed up your site! Compress and optimise images automatically when you "
-"upload them."
+msgid "Speed up your site! Compress and optimize images automatically."
 msgstr ""
-"Velocizza il tuo sito! Comprimete e ottimizzate le immagini automaticamente "
-"quando le caricate."
+"Velocizza il tuo sito! Comprimi e ottimizza le immagini automaticamente."
 
 #: inc/settings-page.php:132
 msgid "WebP"

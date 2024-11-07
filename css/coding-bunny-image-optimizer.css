@@ -1,35 +1,41 @@
-/* Wrap Styles */
+:root {
+    --cb-violet: #A98ED6;
+    --cb-violet-dark: #7F54B2;
+	--cb-violet-light: #F6F5FF;
+	--cb-white: #FFFFFF;
+	--cb-grey-dark: #2B3337;
+}
 
+/* Wrap Styles */
 .wrap h1 {
 	font-size: 26px;
 	font-weight: 700;
 }
 
 .coding-bunny-flex-container {
-        display: flex; /* Enable flexbox layout */
-        align-items: center; /* Align items vertically in the center */
-        margin-bottom: 20px; /* Space below the flex container */
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
     }
 
     .coding-bunny-flex-item {
-        margin-right: 15px; /* Space between flex items */
+        margin-right: 15px;
     }
 
     .coding-bunny-flex-item:last-child {
-        margin-right: 0; /* Remove margin from the last item */
+        margin-right: 0;
     }
 
     input[type="email"], 
     input[type="text"] {
-        width: 200px; /* Set a fixed width for input fields */
-    }
+        width: 200px;
+}
 
     label {
-        margin-right: 5px; /* Space between the label and the input field */
+        margin-right: 5px;
     }
 
 /* Table Styles */
-
 .form-table label {
     margin-right: 20px;
 }
@@ -47,42 +53,41 @@
 }
 
 /* Toggle Switch Styles */
-
 .toggle {
     display: none !important;
 }
 
 .toggle-label {
     position: relative;
-    display: flex; /* Use flexbox to align the toggle and the text */
-    align-items: center; /* Align vertically to the center */
-    cursor: pointer; /* Change the cursor when hovering over the toggle */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .toggle-label .slider {
     position: relative;
-    width: 40px; /* Width of the toggle */
-    height: 24px; /* Height of the toggle */
-    background-color: #ccc; /* Light gray for the off state */
-    border-radius: 34px; /* Rounded corners */
-    transition: background-color 0.4s; /* Transition for background color */
-    margin-right: 10px; /* Space between the toggle and the text */
+    width: 40px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.4s;
+    margin-right: 10px;
 }
 
 .toggle-label .slider:before {
     position: absolute;
     content: "";
-    height: 16px; /* Height of the toggle ball */
-    width: 16px; /* Width of the toggle ball */
-    left: 4px; /* Left position */
-    bottom: 4px; /* Bottom position */
-    background-color: white; /* Color of the toggle ball */
-    border-radius: 50%; /* Circular shape */
-    transition: transform 0.4s; /* Transition for ball movement */
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--cb-white);
+    border-radius: 50%;
+    transition: transform 0.4s;
 }
 
 .toggle:checked + .slider {
-    background-color: #00A32A; /* On state */
+    background-color: var(--cb-violet-dark);
 }
 
 .toggle:checked + .slider:before {
@@ -90,10 +95,54 @@
 }
 
 .disabled-label {
-    opacity: 0.5; /* Make the text semi-transparent */
-    pointer-events: none; /* Prevent clicking on the label */
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .disabled-label .toggle-text {
-    cursor: not-allowed; /* Change the cursor to indicate non-interactivity */
+    cursor: not-allowed;
+}
+
+input[type="email"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    border: 1px solid var(--cb-violet);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    border: 1px solid var(--cb-violet);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="number"] {
+    width: 100%;
+    max-width: 100px;
+    padding: 8px;
+    border: 1px solid var(--cb-violet);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.wp-core-ui .button-primary {
+    background: var(--cb-violet-dark);
+    border-color: var(--cb-violet-dark);
+    color: var(--cb-white);
+	padding: 7px 10px;
+}
+
+.wp-core-ui .button-primary:hover {
+    background: var(--cb-violet);
+    border-color: var(--cb-violet);
+    color: var(--cb-white);
+	padding: 7px 10px;
 }

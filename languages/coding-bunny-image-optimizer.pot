@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodingBunny Image Optimizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-18 09:02+0000\n"
+"POT-Creation-Date: 2024-11-06 15:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Loco-Version: 2.6.11; wp-6.6.2\n"
 "X-Domain: coding-bunny-image-optimizer"
 
-#: inc/updates-check.php:57
+#: inc/updates-check.php:55
 #, php-format
 msgid ""
 "A new version (%s) of the <b>CodingBunny Image Optimizer</b> plugin is "
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Error: Unable to save resized image for file %s"
 msgstr ""
 
-#: coding-bunny-image-optimizer.php:64
+#: coding-bunny-image-optimizer.php:65
 msgid "Get CodingBunny Image Optimizer PRO!"
 msgstr ""
 
@@ -106,11 +106,11 @@ msgid "Having problems with your licence? Contact our support: "
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://www.coding-bunny.com"
+msgid "https://coding-bunny.com"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://www.coding-bunny.com/image-optimizer/"
+msgid "https://coding-bunny.com/image-optimizer/"
 msgstr ""
 
 #. Page title
@@ -173,14 +173,12 @@ msgstr ""
 msgid "Sets the maximum size of width and height of uploaded images."
 msgstr ""
 
-#: coding-bunny-image-optimizer.php:53
+#: coding-bunny-image-optimizer.php:54
 msgid "Settings"
 msgstr ""
 
 #. Description of the plugin
-msgid ""
-"Speed up your site! Compress and optimise images automatically when you "
-"upload them."
+msgid "Speed up your site! Compress and optimize images automatically."
 msgstr ""
 
 #: inc/settings-page.php:132
