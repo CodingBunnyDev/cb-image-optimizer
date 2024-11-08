@@ -1,0 +1,210 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CodingBunny Image Optimizer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-06 15:25+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2\n"
+"X-Domain: coding-bunny-image-optimizer"
+
+#: inc/updates-check.php:55
+#, php-format
+msgid ""
+"A new version (%s) of the <b>CodingBunny Image Optimizer</b> plugin is "
+"available. <a href=\"%s\">Download the latest version here.</a>"
+msgstr ""
+
+#: inc/licence-validation.php:136
+msgid "Activate licence"
+msgstr ""
+
+#: inc/licence-validation.php:144
+msgid "Active licence"
+msgstr ""
+
+#: inc/settings-page.php:136
+msgid "AVIF"
+msgstr ""
+
+#. Author of the plugin
+msgid "CodingBunny"
+msgstr ""
+
+#. Name of the plugin
+#: inc/admin-menu.php:12 inc/settings-page.php:110 
+#: inc/licence-validation.php:108
+msgid "CodingBunny Image Optimizer"
+msgstr ""
+
+#: inc/settings-page.php:128
+msgid "Conversion format"
+msgstr ""
+
+#: inc/settings-page.php:123
+msgid "Convert images to the selected format."
+msgstr ""
+
+#: inc/settings-page.php:115
+msgid "Convert JPEG, PNG and GIF images to WEBP or AVIF format."
+msgstr ""
+
+#: inc/licence-validation.php:132
+msgid "Deactivate licence"
+msgstr ""
+
+#: inc/licence-validation.php:115
+msgid "Email account:"
+msgstr ""
+
+#: inc/settings-page.php:118
+msgid "Enable conversion"
+msgstr ""
+
+#: inc/settings-page.php:145
+msgid "Enable resizing"
+msgstr ""
+
+#. %s: file URL
+#: inc/settings-page.php:236
+#, php-format
+msgid "Error: Unable to create image editor for file %s"
+msgstr ""
+
+#. %s: file URL
+#: inc/settings-page.php:223 inc/settings-page.php:242
+#, php-format
+msgid "Error: Unable to get image dimensions for file %s"
+msgstr ""
+
+#. %s: file URL
+#: inc/settings-page.php:248
+#, php-format
+msgid "Error: Unable to save resized image for file %s"
+msgstr ""
+
+#: coding-bunny-image-optimizer.php:65
+msgid "Get CodingBunny Image Optimizer PRO!"
+msgstr ""
+
+#. Parent slug
+#. Page title
+#: inc/licence-validation.php:32 inc/licence-validation.php:33
+msgid "Go Pro"
+msgstr ""
+
+#: inc/licence-validation.php:158
+msgid "Having problems with your licence? Contact our support: "
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://coding-bunny.com"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://coding-bunny.com/image-optimizer/"
+msgstr ""
+
+#. Page title
+#: inc/admin-menu.php:13
+msgid "Image Optimizer"
+msgstr ""
+
+#: inc/licence-validation.php:189
+msgid "Incorrect licence key or email"
+msgstr ""
+
+#: inc/licence-validation.php:92
+msgid "Incorrect licence key or email: "
+msgstr ""
+
+#: inc/settings-page.php:167
+msgid "Intermediate sizes"
+msgstr ""
+
+#: inc/licence-validation.php:121
+msgid "Licence Key:"
+msgstr ""
+
+#: inc/licence-validation.php:102
+msgid "Licence successfully deactivated!"
+msgstr ""
+
+#: inc/licence-validation.php:89
+msgid "Licence successfully validated!"
+msgstr ""
+
+#. Parent slug
+#. Page title
+#: inc/licence-validation.php:15 inc/licence-validation.php:16 
+#: inc/licence-validation.php:110
+msgid "Manage Licence"
+msgstr ""
+
+#: inc/settings-page.php:159
+msgid "Max. height (px)"
+msgstr ""
+
+#: inc/settings-page.php:155
+msgid "Max. width (px)"
+msgstr ""
+
+#: inc/settings-page.php:192 inc/licence-validation.php:162
+msgid "Powered by CodingBunny"
+msgstr ""
+
+#: inc/settings-page.php:150
+msgid "Resizes images to the size below."
+msgstr ""
+
+#: inc/settings-page.php:164
+msgid "Select intermediate dimensions to be created."
+msgstr ""
+
+#: inc/settings-page.php:142
+msgid "Sets the maximum size of width and height of uploaded images."
+msgstr ""
+
+#: coding-bunny-image-optimizer.php:54
+msgid "Settings"
+msgstr ""
+
+#. Description of the plugin
+msgid "Speed up your site! Compress and optimize images automatically."
+msgstr ""
+
+#: inc/settings-page.php:132
+msgid "WebP"
+msgstr ""
+
+#: inc/licence-validation.php:209
+#, php-format
+msgid ""
+"Your <b>CodingBunny Image Optimizer</b> licence expires in <b>%d days</b>! "
+"<a href=\"%s\">Renew now.</a>"
+msgstr ""
+
+#: inc/licence-validation.php:146
+msgid "Your licence expires on:"
+msgstr ""
+
+#: inc/settings-page.php:104
+msgid ""
+"Your site does not use the libraries required for the correct functioning of "
+"the plugin."
+msgstr ""
+
+#. %s: libraries used
+#. %s: library used
+#: inc/settings-page.php:93 inc/settings-page.php:97 inc/settings-page.php:101
+#, php-format
+msgid "Your site is using the libraries %s"
+msgstr ""
