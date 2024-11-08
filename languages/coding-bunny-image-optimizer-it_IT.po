@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodingBunny Image Optimizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 15:25+0000\n"
-"PO-Revision-Date: 2024-11-06 16:27+0100\n"
+"POT-Creation-Date: 2024-11-08 13:46+0000\n"
+"PO-Revision-Date: 2024-11-08 14:47+0100\n"
 "Last-Translator: Matteo De Maria <info@dmmwebdesign.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -32,29 +32,33 @@ msgstr "Attiva licenza"
 msgid "Active licence"
 msgstr "Licenza attiva"
 
-#: inc/settings-page.php:136
+#: inc/settings-page.php:140
 msgid "AVIF"
 msgstr "AVIF"
+
+#: inc/settings-page.php:152
+msgid "AVIF Quality"
+msgstr "Qualità AVIF"
 
 #. Author of the plugin
 msgid "CodingBunny"
 msgstr "CodingBunny"
 
 #. Name of the plugin
-#: inc/admin-menu.php:12 inc/settings-page.php:110
+#: inc/admin-menu.php:12 inc/settings-page.php:114
 #: inc/licence-validation.php:108
 msgid "CodingBunny Image Optimizer"
 msgstr "CodingBunny Image Optimizer"
 
-#: inc/settings-page.php:128
+#: inc/settings-page.php:132
 msgid "Conversion format"
 msgstr "Formato di conversione"
 
-#: inc/settings-page.php:123
+#: inc/settings-page.php:127
 msgid "Convert images to the selected format."
 msgstr "Converti le immagini nel formato selezionato."
 
-#: inc/settings-page.php:115
+#: inc/settings-page.php:119
 msgid "Convert JPEG, PNG and GIF images to WEBP or AVIF format."
 msgstr "Converti le immagini JPEG, PNG e GIF nei formati WEBP o AVIF."
 
@@ -66,29 +70,29 @@ msgstr "Disattiva licenza"
 msgid "Email account:"
 msgstr "Account email:"
 
-#: inc/settings-page.php:118
+#: inc/settings-page.php:122
 msgid "Enable conversion"
 msgstr "Abilita la conversione"
 
-#: inc/settings-page.php:145
+#: inc/settings-page.php:163
 msgid "Enable resizing"
 msgstr "Abilita il ridimensionamento"
 
 #. %s: file URL
-#: inc/settings-page.php:236
+#: inc/settings-page.php:254
 #, php-format
 msgid "Error: Unable to create image editor for file %s"
 msgstr "Errore: Impossibile creare un editor di immagini per il file %s"
 
 #. %s: file URL
-#: inc/settings-page.php:223 inc/settings-page.php:242
+#: inc/settings-page.php:241 inc/settings-page.php:260
 #, php-format
 msgid "Error: Unable to get image dimensions for file %s"
 msgstr ""
 "Errore: Impossibile ottenere le dimensioni dell’immagine per il file %s"
 
 #. %s: file URL
-#: inc/settings-page.php:248
+#: inc/settings-page.php:266
 #, php-format
 msgid "Error: Unable to save resized image for file %s"
 msgstr "Errore: Impossibile salvare l’immagine ridimensionata per il file %s"
@@ -128,7 +132,7 @@ msgstr "Chiave di licenza o e-mail errata"
 msgid "Incorrect licence key or email: "
 msgstr "Chiave di licenza o e-mail errata: "
 
-#: inc/settings-page.php:167
+#: inc/settings-page.php:185
 msgid "Intermediate sizes"
 msgstr "Dimensioni intermedie"
 
@@ -151,27 +155,27 @@ msgstr "Licenza convalidata con successo!"
 msgid "Manage Licence"
 msgstr "Gestisci licenza"
 
-#: inc/settings-page.php:159
+#: inc/settings-page.php:177
 msgid "Max. height (px)"
 msgstr "Altezza massima (px)"
 
-#: inc/settings-page.php:155
+#: inc/settings-page.php:173
 msgid "Max. width (px)"
 msgstr "Larghezza massima (px)"
 
-#: inc/settings-page.php:192 inc/licence-validation.php:162
+#: inc/settings-page.php:210 inc/licence-validation.php:162
 msgid "Powered by CodingBunny"
 msgstr "Powered by CodingBunny"
 
-#: inc/settings-page.php:150
+#: inc/settings-page.php:168
 msgid "Resizes images to the size below."
 msgstr "Ridimensiona le immagini alle dimensioni indicate."
 
-#: inc/settings-page.php:164
+#: inc/settings-page.php:182
 msgid "Select intermediate dimensions to be created."
 msgstr "Seleziona le dimensioni intermedie da creare."
 
-#: inc/settings-page.php:142
+#: inc/settings-page.php:160
 msgid "Sets the maximum size of width and height of uploaded images."
 msgstr ""
 "Imposta le dimensioni massime di larghezza e altezza delle immagini caricate."
@@ -185,9 +189,13 @@ msgid "Speed up your site! Compress and optimize images automatically."
 msgstr ""
 "Velocizza il tuo sito! Comprimi e ottimizza le immagini automaticamente."
 
-#: inc/settings-page.php:132
+#: inc/settings-page.php:136
 msgid "WebP"
 msgstr "WebP"
+
+#: inc/settings-page.php:145
+msgid "WEBP Quality"
+msgstr "Qualità WEBP"
 
 #: inc/licence-validation.php:209
 #, php-format
@@ -202,7 +210,7 @@ msgstr ""
 msgid "Your licence expires on:"
 msgstr "La licenza scade il:"
 
-#: inc/settings-page.php:104
+#: inc/settings-page.php:108
 msgid ""
 "Your site does not use the libraries required for the correct functioning of "
 "the plugin."
@@ -212,7 +220,7 @@ msgstr ""
 
 #. %s: libraries used
 #. %s: library used
-#: inc/settings-page.php:93 inc/settings-page.php:97 inc/settings-page.php:101
+#: inc/settings-page.php:97 inc/settings-page.php:101 inc/settings-page.php:105
 #, php-format
 msgid "Your site is using the libraries %s"
 msgstr "Il sito utilizza le librerie %s"

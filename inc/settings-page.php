@@ -142,19 +142,25 @@ function coding_bunny_image_optimizer_settings_page() {
                     </td>
                 </tr>
     <tr valign="top">
-        <th scope="row"><label for="quality_webp"><?php esc_html_e( 'WEBP Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
-        <td>
-            <input type="range" id="quality_webp" name="quality_webp" min="0" max="100" value="<?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?>" oninput="this.nextElementSibling.value = this.value">
-            <output><?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?></output>
-        </td>
-    </tr>
-    <tr valign="top">
-        <th scope="row"><label for="quality_avif"><?php esc_html_e( 'AVIF Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
-        <td>
-            <input type="range" id="quality_avif" name="quality_avif" min="0" max="100" value="<?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?>" oninput="this.nextElementSibling.value = this.value">
-            <output><?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?></output>
-        </td>
-    </tr>
+    <th scope="row"><label for="quality_webp"><?php esc_html_e( 'WEBP Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
+    <td>
+        <input type="range" id="quality_webp" name="quality_webp" min="0" max="100" 
+               value="<?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?>" 
+               <?php echo ( ! $licence_active ) ? 'disabled' : ''; ?> 
+               oninput="this.nextElementSibling.value = this.value">
+        <output class="check-label <?php echo ( ! $licence_active ) ? 'disabled-label' : ''; ?>"><?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?></output>
+    </td>
+</tr>
+<tr valign="top">
+    <th scope="row"><label for="quality_avif"><?php esc_html_e( 'AVIF Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
+    <td>
+        <input type="range" id="quality_avif" name="quality_avif" min="0" max="100" 
+               value="<?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?>" 
+               <?php echo ( ! $licence_active ) ? 'disabled' : ''; ?> 
+               oninput="this.nextElementSibling.value = this.value">
+        <output class="check-label <?php echo ( ! $licence_active ) ? 'disabled-label' : ''; ?>"><?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?></output>
+    </td>
+</tr>
 </table>
             <hr>
             <h3><b><?php esc_html_e( 'Sets the maximum size of width and height of uploaded images.', 'coding-bunny-image-optimizer' ); ?></b></h3>
@@ -272,42 +278,32 @@ function coding_bunny_image_optimizer_resize_image( $file ) {
 /**
  * Convert images to WEBP or AVIF format on upload
  */
-add_filter( 'wp_handle_upload', 'coding_bunny_image_optimizer_convert_image' );
-function coding_bunny_image_optimizer_convert_image( $upload ) {
+add_filter('wp_handle_upload', 'coding_bunny_image_optimizer_convert_image');
+function coding_bunny_image_optimizer_convert_image($upload) {
     // Check if conversion is enabled
-    $enable_conversion = get_option( 'enable_conversion', '1' );
-    if ( $enable_conversion !== '1' ) {
+    $enable_conversion = get_option('enable_conversion', '1');
+    if ($enable_conversion !== '1') {
         return $upload;
     }
 
     // Check the selected conversion format
-    $convert_format = get_option( 'convert_format', 'webp' );
+    $convert_format = get_option('convert_format', 'webp');
 
-    if ( $convert_format && isset( $upload['type'] ) && in_array( $upload['type'], array( 'image/jpeg', 'image/png', 'image/gif' ) ) ) {
+    if ($convert_format && isset($upload['type']) && in_array($upload['type'], ['image/jpeg', 'image/png', 'image/gif'])) {
         $file_path = $upload['file'];
 
         // Check if ImageMagick or GD is available
-        if ( extension_loaded( 'imagick' ) || extension_loaded( 'gd' ) ) {
-            $image_editor = wp_get_image_editor( $file_path );
-            if ( ! is_wp_error( $image_editor ) ) {
-                $file_info = pathinfo( $file_path );
-                $dirname   = $file_info['dirname'];
-                $filename  = $file_info['filename'];
+        if (extension_loaded('imagick') || extension_loaded('gd')) {
+            $output_path = pathinfo($file_path, PATHINFO_DIRNAME) . '/' . pathinfo($file_path, PATHINFO_FILENAME) . '.' . $convert_format;
 
-                // Create a new path for the converted image
-                $new_file_path = $dirname . '/' . $filename . '.' . $convert_format;
+            if (convert_image($file_path, $output_path, $convert_format)) {
+                // Success: replace the uploaded image with the converted image
+                $upload['file'] = $output_path;
+                $upload['url'] = str_replace(basename($upload['url']), basename($output_path), $upload['url']);
+                $upload['type'] = 'image/' . $convert_format;
 
-                // Attempt to save the image in the selected format
-                $saved_image = $image_editor->save( $new_file_path, 'image/' . $convert_format );
-                if ( ! is_wp_error( $saved_image ) && file_exists( $saved_image['path'] ) ) {
-                    // Success: replace the uploaded image with the converted image
-                    $upload['file'] = $saved_image['path'];
-                    $upload['url']  = str_replace( basename( $upload['url'] ), basename( $saved_image['path'] ), $upload['url'] );
-                    $upload['type'] = 'image/' . $convert_format;
-
-                    // Optionally remove the original image
-                    wp_delete_file( $file_path );
-                }
+                // Optionally remove the original image
+                wp_delete_file($file_path);
             }
         }
     }

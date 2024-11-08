@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodingBunny Image Optimizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 15:25+0000\n"
+"POT-Creation-Date: 2024-11-08 13:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -31,8 +31,12 @@ msgstr ""
 msgid "Active licence"
 msgstr ""
 
-#: inc/settings-page.php:136
+#: inc/settings-page.php:140
 msgid "AVIF"
+msgstr ""
+
+#: inc/settings-page.php:152
+msgid "AVIF Quality"
 msgstr ""
 
 #. Author of the plugin
@@ -40,20 +44,20 @@ msgid "CodingBunny"
 msgstr ""
 
 #. Name of the plugin
-#: inc/admin-menu.php:12 inc/settings-page.php:110 
+#: inc/admin-menu.php:12 inc/settings-page.php:114 
 #: inc/licence-validation.php:108
 msgid "CodingBunny Image Optimizer"
 msgstr ""
 
-#: inc/settings-page.php:128
+#: inc/settings-page.php:132
 msgid "Conversion format"
 msgstr ""
 
-#: inc/settings-page.php:123
+#: inc/settings-page.php:127
 msgid "Convert images to the selected format."
 msgstr ""
 
-#: inc/settings-page.php:115
+#: inc/settings-page.php:119
 msgid "Convert JPEG, PNG and GIF images to WEBP or AVIF format."
 msgstr ""
 
@@ -65,28 +69,28 @@ msgstr ""
 msgid "Email account:"
 msgstr ""
 
-#: inc/settings-page.php:118
+#: inc/settings-page.php:122
 msgid "Enable conversion"
 msgstr ""
 
-#: inc/settings-page.php:145
+#: inc/settings-page.php:163
 msgid "Enable resizing"
 msgstr ""
 
 #. %s: file URL
-#: inc/settings-page.php:236
+#: inc/settings-page.php:254
 #, php-format
 msgid "Error: Unable to create image editor for file %s"
 msgstr ""
 
 #. %s: file URL
-#: inc/settings-page.php:223 inc/settings-page.php:242
+#: inc/settings-page.php:241 inc/settings-page.php:260
 #, php-format
 msgid "Error: Unable to get image dimensions for file %s"
 msgstr ""
 
 #. %s: file URL
-#: inc/settings-page.php:248
+#: inc/settings-page.php:266
 #, php-format
 msgid "Error: Unable to save resized image for file %s"
 msgstr ""
@@ -126,7 +130,7 @@ msgstr ""
 msgid "Incorrect licence key or email: "
 msgstr ""
 
-#: inc/settings-page.php:167
+#: inc/settings-page.php:185
 msgid "Intermediate sizes"
 msgstr ""
 
@@ -149,27 +153,27 @@ msgstr ""
 msgid "Manage Licence"
 msgstr ""
 
-#: inc/settings-page.php:159
+#: inc/settings-page.php:177
 msgid "Max. height (px)"
 msgstr ""
 
-#: inc/settings-page.php:155
+#: inc/settings-page.php:173
 msgid "Max. width (px)"
 msgstr ""
 
-#: inc/settings-page.php:192 inc/licence-validation.php:162
+#: inc/settings-page.php:210 inc/licence-validation.php:162
 msgid "Powered by CodingBunny"
 msgstr ""
 
-#: inc/settings-page.php:150
+#: inc/settings-page.php:168
 msgid "Resizes images to the size below."
 msgstr ""
 
-#: inc/settings-page.php:164
+#: inc/settings-page.php:182
 msgid "Select intermediate dimensions to be created."
 msgstr ""
 
-#: inc/settings-page.php:142
+#: inc/settings-page.php:160
 msgid "Sets the maximum size of width and height of uploaded images."
 msgstr ""
 
@@ -181,8 +185,12 @@ msgstr ""
 msgid "Speed up your site! Compress and optimize images automatically."
 msgstr ""
 
-#: inc/settings-page.php:132
+#: inc/settings-page.php:136
 msgid "WebP"
+msgstr ""
+
+#: inc/settings-page.php:145
+msgid "WEBP Quality"
 msgstr ""
 
 #: inc/licence-validation.php:209
@@ -196,7 +204,7 @@ msgstr ""
 msgid "Your licence expires on:"
 msgstr ""
 
-#: inc/settings-page.php:104
+#: inc/settings-page.php:108
 msgid ""
 "Your site does not use the libraries required for the correct functioning of "
 "the plugin."
@@ -204,7 +212,7 @@ msgstr ""
 
 #. %s: libraries used
 #. %s: library used
-#: inc/settings-page.php:93 inc/settings-page.php:97 inc/settings-page.php:101
+#: inc/settings-page.php:97 inc/settings-page.php:101 inc/settings-page.php:105
 #, php-format
 msgid "Your site is using the libraries %s"
 msgstr ""
