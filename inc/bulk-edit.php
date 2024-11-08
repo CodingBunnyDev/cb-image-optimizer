@@ -22,18 +22,42 @@ function add_webp_button_below_filter() {
     $is_license_active = io_is_licence_active();
 
     ?>
-    <!-- A separated bar with the label and button, which will appear below the Filter button -->
+    <!-- A separated bar with the buttons, which will appear below the Filter button -->
     <div class="image-optimizer-bulk-actions" style="display: flex; justify-content: flex-start; align-items: center;">
-        <span style="font-weight: bold; margin-right: 20px;"><?php echo __('Optimise selected images', 'textdomain'); ?></span>
-        <button type="button" class="button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimise Images', 'textdomain'); ?></button>
+        <button type="button" class="button optimize-button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize Selected Images', 'textdomain'); ?></button>
+        <button type="button" class="button optimize-all-button" id="convert_all_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize All Images', 'textdomain'); ?></button>
     </div>
+
+    <style>
+        .image-optimizer-bulk-actions .button {
+            margin-right: 20px;
+        }
+        .optimize-button {
+            border-color: #7F54B2 !important;
+            color: #7F54B2 !important;
+        }
+        .optimize-button:hover {
+            border-color: #7F54B2 !important;
+            color: #7F54B2 !important;
+        }
+        .optimize-all-button {
+            background-color: #7F54B2 !important;
+            border-color: #7F54B2 !important;
+            color: #FFFFFF !important;
+        }
+        .optimize-all-button:hover {
+            background-color: #A98ED6 !important;
+            border-color: #A98ED6 !important;
+            color: #FFFFFF !important;
+        }
+    </style>
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             // Move the button after the Filter button
             $('.bulkactions').after($('.image-optimizer-bulk-actions'));
 
-            // When the button is clicked
+            // When the "Optimize Images" button is clicked
             $('#convert_to_webp_delete').on('click', function() {
                 if ($(this).is(':disabled')) {
                     alert('Please activate the license to use this feature.');
@@ -73,12 +97,39 @@ function add_webp_button_below_filter() {
                     });
                 }
             });
+
+            // When the "Optimize All Images" button is clicked
+            $('#convert_all_to_webp_delete').on('click', function() {
+                if ($(this).is(':disabled')) {
+                    alert('Please activate the license to use this feature.');
+                    return;
+                }
+
+                if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
+                    $.ajax({
+                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                        type: 'POST',
+                        data: {
+                            action: 'convert_all_to_webp',
+                            nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>"
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.data);
+                                location.reload(); // Reload the page to update the media library
+                            } else {
+                                alert('Error: ' + response.data);
+                            }
+                        }
+                    });
+                }
+            });
         });
     </script>
     <?php
 }
 
-// AJAX function to convert images in bulk (multiple)
+// AJAX function to convert selected images in bulk (multiple)
 add_action('wp_ajax_convert_to_webp_multiple', 'convert_to_webp_multiple');
 function convert_to_webp_multiple() {
     check_ajax_referer('convert_webp_nonce', 'nonce');
@@ -93,82 +144,114 @@ function convert_to_webp_multiple() {
 
     // Loop through each selected image
     foreach ($ids as $post_id) {
-        $image_path = get_attached_file($post_id);
-
-        // Check if the file exists
-        if (!file_exists($image_path)) {
-            error_log("File not found: $image_path"); // Debug log
-            continue; // Skip if the file does not exist
-        }
-
-        $info = pathinfo($image_path);
-        $extension = isset($info['extension']) ? strtolower($info['extension']) : ''; // Ensure extension is not null
-
-        // Check if the extension is supported
-        if (!in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
-            continue; // Skip unsupported images
-        }
-
-        // Determine the output file path and MIME type based on the selected format
-        $output_path = $info['dirname'] . '/' . $info['filename'] . '.' . $convert_format;
-        $mime_type = 'image/' . $convert_format;
-
-        // Check if the converted version already exists
-        if (file_exists($output_path)) {
-            continue; // Skip if the converted file already exists
-        }
-
-        // Try to convert the image
-        if (convert_image($image_path, $output_path, $convert_format)) {
-            // Update the file path of the image in the media library to point to the converted file
-            update_attached_file($post_id, $output_path);
-
-            // Update the metadata to include the converted version
-            $metadata = wp_generate_attachment_metadata($post_id, $output_path);
-
-            // Update the MIME type of the attachment to the new format
-            $attachment = array(
-                'ID' => $post_id,
-                'post_mime_type' => $mime_type // Update MIME type
-            );
-            wp_update_post($attachment); // Update the post with the new MIME type
-
-            // Update the metadata
-            wp_update_attachment_metadata($post_id, $metadata);
-
-            // Delete the original image if the user chose to delete it
-            if ($action_choice === 'delete') {
-                unlink($image_path);
-
-                // Delete files with the same name but different extensions
-                foreach (['jpg', 'jpeg', 'png', 'gif'] as $ext) {
-                    $old_file_path = $info['dirname'] . '/' . $info['filename'] . '.' . $ext;
-                    if (file_exists($old_file_path)) {
-                        unlink($old_file_path);
-                    }
-
-                    // Delete intermediate sizes
-                    $intermediate_sizes = glob($info['dirname'] . '/' . $info['filename'] . '-*.' . $ext);
-                    foreach ($intermediate_sizes as $intermediate_file) {
-                        unlink($intermediate_file);
-                    }
-                }
-
-                // Update database references from the original extension to the new format
-                global $wpdb;
-                $wpdb->query(
-                    $wpdb->prepare(
-                        "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
-                        $info['basename'],
-                        $info['filename'] . '.' . $convert_format,
-                        '%' . $info['basename'] . '%'
-                    )
-                );
-            }
-        }
+        optimize_image($post_id, $convert_format, $action_choice);
     }
 
     wp_send_json_success(__('Operation completed.', 'textdomain'));
+}
+
+// AJAX function to convert all images in bulk
+add_action('wp_ajax_convert_all_to_webp', 'convert_all_to_webp');
+function convert_all_to_webp() {
+    check_ajax_referer('convert_webp_nonce', 'nonce');
+
+    $args = array(
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'post_status' => 'inherit',
+        'posts_per_page' => -1,
+    );
+
+    $query = new WP_Query($args);
+    $convert_format = get_option('convert_format', 'webp'); // Get the conversion format from settings
+    $action_choice = 'delete'; // Default action choice
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            optimize_image($post_id, $convert_format, $action_choice);
+        }
+        wp_reset_postdata();
+    }
+
+    wp_send_json_success(__('All images optimized.', 'textdomain'));
+}
+
+function optimize_image($post_id, $convert_format, $action_choice) {
+    $image_path = get_attached_file($post_id);
+
+    // Check if the file exists
+    if (!file_exists($image_path)) {
+        error_log("File not found: $image_path"); // Debug log
+        return; // Skip if the file does not exist
+    }
+
+    $info = pathinfo($image_path);
+    $extension = isset($info['extension']) ? strtolower($info['extension']) : ''; // Ensure extension is not null
+
+    // Check if the extension is supported
+    if (!in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+        return; // Skip unsupported images
+    }
+
+    // Determine the output file path and MIME type based on the selected format
+    $output_path = $info['dirname'] . '/' . $info['filename'] . '.' . $convert_format;
+    $mime_type = 'image/' . $convert_format;
+
+    // Check if the converted version already exists
+    if (file_exists($output_path)) {
+        return; // Skip if the converted file already exists
+    }
+
+    // Try to convert the image
+    if (convert_image($image_path, $output_path, $convert_format)) {
+        // Update the file path of the image in the media library to point to the converted file
+        update_attached_file($post_id, $output_path);
+
+        // Update the metadata to include the converted version
+        $metadata = wp_generate_attachment_metadata($post_id, $output_path);
+
+        // Update the MIME type of the attachment to the new format
+        $attachment = array(
+            'ID' => $post_id,
+            'post_mime_type' => $mime_type // Update MIME type
+        );
+        wp_update_post($attachment); // Update the post with the new MIME type
+
+        // Update the metadata
+        wp_update_attachment_metadata($post_id, $metadata);
+
+        // Delete the original image if the user chose to delete it
+        if ($action_choice === 'delete') {
+            unlink($image_path);
+
+            // Delete files with the same name but different extensions
+            foreach (['jpg', 'jpeg', 'png', 'gif'] as $ext) {
+                $old_file_path = $info['dirname'] . '/' . $info['filename'] . '.' . $ext;
+                if (file_exists($old_file_path)) {
+                    unlink($old_file_path);
+                }
+
+                // Delete intermediate sizes
+                $intermediate_sizes = glob($info['dirname'] . '/' . $info['filename'] . '-*.' . $ext);
+                foreach ($intermediate_sizes as $intermediate_file) {
+                    unlink($intermediate_file);
+                }
+            }
+
+            // Update database references from the original extension to the new format
+            global $wpdb;
+            $wpdb->query(
+                $wpdb->prepare(
+                    "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
+                    $info['basename'],
+                    $info['filename'] . '.' . $convert_format,
+                    '%' . $info['basename'] . '%'
+                )
+            );
+        }
+    }
 }
 
 function convert_image($source, $destination, $format) {
@@ -222,10 +305,13 @@ function convert_image($source, $destination, $format) {
 
         imagepalettetotruecolor($image);
         if ($format === 'webp') {
-            return imagewebp($image, $destination, 80); // 80 is the compression quality
+            return imagewebp($image, $destination, 80);
         } elseif ($format === 'avif' && function_exists('imageavif')) {
-            return imageavif($image, $destination, 80); // 80 is the compression quality
+            return imageavif($image, $destination, 80);
         }
     }
     return false;
 }
+
+// Disable WordPress' automatic image scaling feature
+add_filter( 'big_image_size_threshold', '__return_false' );
