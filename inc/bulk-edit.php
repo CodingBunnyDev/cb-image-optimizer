@@ -140,6 +140,20 @@ function convert_to_webp_multiple() {
             if ($action_choice === 'delete') {
                 unlink($image_path);
 
+                // Delete files with the same name but different extensions
+                foreach (['jpg', 'jpeg', 'png', 'gif'] as $ext) {
+                    $old_file_path = $info['dirname'] . '/' . $info['filename'] . '.' . $ext;
+                    if (file_exists($old_file_path)) {
+                        unlink($old_file_path);
+                    }
+
+                    // Delete intermediate sizes
+                    $intermediate_sizes = glob($info['dirname'] . '/' . $info['filename'] . '-*.' . $ext);
+                    foreach ($intermediate_sizes as $intermediate_file) {
+                        unlink($intermediate_file);
+                    }
+                }
+
                 // Update database references from the original extension to the new format
                 global $wpdb;
                 $wpdb->query(
