@@ -66,8 +66,15 @@ This plugin is licensed under the [GNU General Public License v3.0](https://www.
 
 ## Changelog
 
-### 1.0.0
-New - Initial release.
----
+### 1.2.0
+New - Added conversion quality setting.
+New - Added button to convert all library images without selecting them.
+Improvement - Intermediate sizes of images in library are now removed after conversion.
+Fix - During bulk optimization, images were being resized even with the option turned off.
 
-Happy coding with CodingBunny Image Optimizer!
+### 1.1.0
+New - Added bulk optimization of images in library.
+Improvement - Changed interface style.
+
+### 1.1.0
+New - First release.
