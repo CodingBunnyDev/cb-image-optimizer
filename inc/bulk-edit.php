@@ -258,13 +258,27 @@ function convert_image($source, $destination, $format) {
     // Retrieve maximum dimensions from settings
     $max_width = get_option('max_width', 1000);
     $max_height = get_option('max_height', 1000);
+	$enable_resize = get_option('enable_resize', '1');
+
+    // Retrieve quality settings from options
+    $quality_webp = get_option('quality_webp', 80);
+    $quality_avif = get_option('quality_avif', 80);
 
     if (extension_loaded('imagick')) {
         // Use Imagick if available
         $imagick = new Imagick($source);
 
         // Resize the image if necessary
-        $imagick->resizeImage($max_width, $max_height, Imagick::FILTER_LANCZOS, 1, true);
+        if ($enable_resize === '1') {
+            $imagick->resizeImage($max_width, $max_height, Imagick::FILTER_LANCZOS, 1, true);
+        }
+
+        // Set the quality based on the selected format
+        if ($format === 'webp') {
+            $imagick->setImageCompressionQuality($quality_webp);
+        } elseif ($format === 'avif') {
+            $imagick->setImageCompressionQuality($quality_avif);
+        }
 
         // Convert to the desired format
         $imagick->setImageFormat($format);
@@ -289,6 +303,7 @@ function convert_image($source, $destination, $format) {
         }
 
         // Resize the image if necessary
+    if ($enable_resize === '1') {
         $width = imagesx($image);
         $height = imagesy($image);
         if ($width > $max_width || $height > $max_height) {
@@ -302,12 +317,12 @@ function convert_image($source, $destination, $format) {
             imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
             $image = $resized_image;
         }
-
+	}
         imagepalettetotruecolor($image);
         if ($format === 'webp') {
-            return imagewebp($image, $destination, 80);
+            return imagewebp($image, $destination, $quality_webp); // Use the selected WEBP quality
         } elseif ($format === 'avif' && function_exists('imageavif')) {
-            return imageavif($image, $destination, 80);
+            return imageavif($image, $destination, $quality_avif); // Use the selected AVIF quality
         }
     }
     return false;

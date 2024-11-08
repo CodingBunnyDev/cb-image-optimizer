@@ -63,6 +63,8 @@ function coding_bunny_image_optimizer_settings_page() {
         $convert_format = isset( $_POST['convert_format'] ) ? sanitize_text_field( wp_unslash( $_POST['convert_format'] ) ) : 'webp';
         $enable_resize = isset( $_POST['enable_resize'] ) ? '1' : '0';
         $enable_conversion = isset( $_POST['enable_conversion'] ) ? '1' : '0';
+		$quality_webp = isset( $_POST['quality_webp'] ) ? absint( $_POST['quality_webp'] ) : 80;
+		$quality_avif = isset( $_POST['quality_avif'] ) ? absint( $_POST['quality_avif'] ) : 80;
 
         // Save selected intermediate image sizes
         $enabled_image_sizes = isset( $_POST['enabled_image_sizes'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['enabled_image_sizes'] ) ) : [];
@@ -73,6 +75,8 @@ function coding_bunny_image_optimizer_settings_page() {
         update_option( 'enable_resize', $enable_resize );
         update_option( 'enable_conversion', $enable_conversion );
         update_option( 'enabled_image_sizes', $enabled_image_sizes );
+		update_option( 'quality_webp', $quality_webp );
+		update_option( 'quality_avif', $quality_avif );
     }
 
     // Retrieve current values from options
@@ -137,7 +141,21 @@ function coding_bunny_image_optimizer_settings_page() {
                         </label>
                     </td>
                 </tr>
-            </table>
+    <tr valign="top">
+        <th scope="row"><label for="quality_webp"><?php esc_html_e( 'WEBP Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
+        <td>
+            <input type="range" id="quality_webp" name="quality_webp" min="0" max="100" value="<?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?>" oninput="this.nextElementSibling.value = this.value">
+            <output><?php echo esc_attr( get_option( 'quality_webp', 80 ) ); ?></output>
+        </td>
+    </tr>
+    <tr valign="top">
+        <th scope="row"><label for="quality_avif"><?php esc_html_e( 'AVIF Quality', 'coding-bunny-image-optimizer' ); ?></label></th>
+        <td>
+            <input type="range" id="quality_avif" name="quality_avif" min="0" max="100" value="<?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?>" oninput="this.nextElementSibling.value = this.value">
+            <output><?php echo esc_attr( get_option( 'quality_avif', 80 ) ); ?></output>
+        </td>
+    </tr>
+</table>
             <hr>
             <h3><b><?php esc_html_e( 'Sets the maximum size of width and height of uploaded images.', 'coding-bunny-image-optimizer' ); ?></b></h3>
             <table class="form-table">
