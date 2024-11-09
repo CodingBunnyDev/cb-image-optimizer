@@ -197,8 +197,12 @@ function optimize_image($post_id, $convert_format, $action_choice) {
 
     // Determine the output file path and MIME type based on the selected format
     $output_path = $info['dirname'] . '/' . $info['filename'] . '.' . $convert_format;
-    $output_path = generate_unique_filename($output_path, $convert_format);
     $mime_type = 'image/' . $convert_format;
+
+    // Check if the converted version already exists
+    if (file_exists($output_path)) {
+        return; // Skip if the converted file already exists
+    }
 
     // Try to convert the image
     if (convert_image($image_path, $output_path, $convert_format)) {
@@ -248,21 +252,6 @@ function optimize_image($post_id, $convert_format, $action_choice) {
             );
         }
     }
-}
-
-function generate_unique_filename($path, $format) {
-    $info = pathinfo($path);
-    $dirname = $info['dirname'];
-    $filename = $info['filename'];
-    $extension = $format;
-
-    $i = 1;
-    while (file_exists($path)) {
-        $path = $dirname . '/' . $filename . '-' . $i . '.' . $extension;
-        $i++;
-    }
-
-    return $path;
 }
 
 function convert_image($source, $destination, $format) {
