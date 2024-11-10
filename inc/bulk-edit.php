@@ -24,154 +24,109 @@ function add_webp_button_below_filter() {
     ?>
     <!-- A separated bar with the buttons, which will appear below the Filter button -->
     <div class="image-optimizer-bulk-actions" style="display: flex; justify-content: flex-start; align-items: center;">
-    <button type="button" class="button optimize-button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize Selected Images', 'textdomain'); ?></button>
-    <button type="button" class="button optimize-all-button" id="convert_all_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize All Images', 'textdomain'); ?></button>
-    <div class="progress-bar-container" style="display: flex; align-items: center;">
-        <div class="progress-bar" style="width: 200px; height: 20px; background-color: #e0e0e0; margin-left: 20px; position: relative;">
-            <div class="progress-bar-fill" style="width: 0; height: 100%; background-color: #7F54B2;"></div>
-        </div>
-        <span class="progress-percentage" style="margin-left: 10px;">0%</span>
+        <button type="button" class="button optimize-button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize Selected Images', 'textdomain'); ?></button>
+        <button type="button" class="button optimize-all-button" id="convert_all_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize All Images', 'textdomain'); ?></button>
     </div>
-</div>
 
     <style>
         .image-optimizer-bulk-actions .button {
-    margin-right: 20px;
-}
-.optimize-button {
-    border-color: #7F54B2 !important;
-    color: #7F54B2 !important;
-}
-.optimize-button:hover {
-    border-color: #7F54B2 !important;
-    color: #7F54B2 !important;
-}
-.optimize-all-button {
-    background-color: #7F54B2 !important;
-    border-color: #7F54B2 !important;
-    color: #FFFFFF !important;
-}
-.optimize-all-button:hover {
-    background-color: #A98ED6 !important;
-    border-color: #A98ED6 !important;
-    color: #FFFFFF !important;
-}
+            margin-right: 20px;
+        }
+        .optimize-button {
+            border-color: #7F54B2 !important;
+            color: #7F54B2 !important;
+        }
+        .optimize-button:hover {
+            border-color: #7F54B2 !important;
+            color: #7F54B2 !important;
+        }
+        .optimize-all-button {
+            background-color: #7F54B2 !important;
+            border-color: #7F54B2 !important;
+            color: #FFFFFF !important;
+        }
+        .optimize-all-button:hover {
+            background-color: #A98ED6 !important;
+            border-color: #A98ED6 !important;
+            color: #FFFFFF !important;
+        }
     </style>
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-    // Move the button after the Filter button
-    $('.bulkactions').after($('.image-optimizer-bulk-actions'));
+            // Move the button after the Filter button
+            $('.bulkactions').after($('.image-optimizer-bulk-actions'));
 
-    function updateProgressBar(progress) {
-        var percentage = progress + '%';
-        $('.progress-bar-fill').css('width', percentage);
-        $('.progress-percentage').text(percentage);
-    }
+            // When the "Optimize Images" button is clicked
+            $('#convert_to_webp_delete').on('click', function() {
+                if ($(this).is(':disabled')) {
+                    alert('Please activate the license to use this feature.');
+                    return;
+                }
 
-    function optimizeImages(ids, action) {
-        var totalImages = ids.length;
-        var optimizedImages = 0;
+                var selectedIds = [];
+                
+                // Collect the IDs of the selected images
+                $('input[type="checkbox"]:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
 
-        ids.forEach(function(id) {
-            $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
-                type: 'POST',
-                data: {
-                    action: action,
-                    nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>",
-                    ids: [id],
-                    action_choice: 'delete'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        optimizedImages++;
-                        var progress = Math.round((optimizedImages / totalImages) * 100);
-                        updateProgressBar(progress);
+                if (selectedIds.length === 0) {
+                    alert('Please select at least one image.');
+                    return;
+                }
 
-                        if (optimizedImages === totalImages) {
-                            alert('Optimization completed.');
-                            location.reload(); // Reload the page to update the media library
+                if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
+                    $.ajax({
+                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                        type: 'POST',
+                        data: {
+                            action: 'convert_to_webp_multiple',
+                            nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>",
+                            ids: selectedIds,
+                            action_choice: 'delete'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.data);
+                                location.reload(); // Reload the page to update the media library
+                            } else {
+                                alert('Error: ' + response.data);
+                            }
                         }
-                    } else {
-                        alert('Error: ' + response.data);
-                    }
+                    });
+                }
+            });
+
+            // When the "Optimize All Images" button is clicked
+            $('#convert_all_to_webp_delete').on('click', function() {
+                if ($(this).is(':disabled')) {
+                    alert('Please activate the license to use this feature.');
+                    return;
+                }
+
+                if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
+                    $.ajax({
+                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                        type: 'POST',
+                        data: {
+                            action: 'convert_all_to_webp',
+                            nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>"
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.data);
+                                location.reload(); // Reload the page to update the media library
+                            } else {
+                                alert('Error: ' + response.data);
+                            }
+                        }
+                    });
                 }
             });
         });
-    }
-
-    $('#convert_to_webp_delete').on('click', function() {
-        if ($(this).is(':disabled')) {
-            alert('Please activate the license to use this feature.');
-            return;
-        }
-
-        var selectedIds = [];
-        $('input[type="checkbox"]:checked').each(function() {
-            selectedIds.push($(this).val());
-        });
-
-        if (selectedIds.length === 0) {
-            alert('Please select at least one image.');
-            return;
-        }
-
-        if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
-            optimizeImages(selectedIds, 'convert_to_webp_multiple');
-        }
-    });
-
-    $('#convert_all_to_webp_delete').on('click', function() {
-        if ($(this).is(':disabled')) {
-            alert('Please activate the license to use this feature.');
-            return;
-        }
-
-        if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
-            $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
-                type: 'POST',
-                data: {
-                    action: 'get_all_image_ids',
-                    nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>"
-                },
-                success: function(response) {
-                    if (response.success) {
-                        var allImageIds = response.data;
-                        optimizeImages(allImageIds, 'convert_all_to_webp');
-                    } else {
-                        alert('Error: ' + response.data);
-                    }
-                }
-            });
-        }
-    });
-});
     </script>
     <?php
-}
-
-// AJAX Functions for 'Optimize All Images'
-add_action('wp_ajax_get_all_image_ids', 'get_all_image_ids');
-function get_all_image_ids() {
-    check_ajax_referer('convert_webp_nonce', 'nonce');
-
-    $args = array(
-        'post_type' => 'attachment',
-        'post_mime_type' => 'image',
-        'post_status' => 'inherit',
-        'posts_per_page' => -1,
-        'fields' => 'ids'
-    );
-
-    $query = new WP_Query($args);
-    if ($query->have_posts()) {
-        $image_ids = $query->posts;
-        wp_send_json_success($image_ids);
-    } else {
-        wp_send_json_error(__('No images found', 'textdomain'));
-    }
 }
 
 // AJAX function to convert selected images in bulk (multiple)
