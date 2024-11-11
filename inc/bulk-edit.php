@@ -24,10 +24,10 @@ function add_webp_button_below_filter() {
     ?>
     <!-- A separated bar with the buttons, which will appear below the Filter button -->
     <div class="image-optimizer-bulk-actions" style="display: flex; justify-content: flex-start; align-items: center;">
-    <button type="button" class="button optimize-button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize Selected Images', 'textdomain'); ?></button>
-    <button type="button" class="button optimize-all-button" id="convert_all_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo __('Optimize All Images', 'textdomain'); ?></button>
+    <button type="button" class="button optimize-button" id="convert_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo esc_html__('Optimize Selected Images', 'textdomain'); ?></button>
+    <button type="button" class="button optimize-all-button" id="convert_all_to_webp_delete" <?php echo !$is_license_active ? 'disabled' : ''; ?>><?php echo esc_html__('Optimize All Images', 'textdomain'); ?></button>
     <div class="progress-bar-container" style="display: flex; align-items: center;">
-        <div class="progress-bar" style="width: 200px; height: 20px; background-color: #e0e0e0; margin-left: 20px; position: relative;">
+        <div class="progress-bar" style="width: 200px; height: 20px; background-color: #e0e0e0; position: relative;">
             <div class="progress-bar-fill" style="width: 0; height: 100%; background-color: #7F54B2;"></div>
         </div>
         <span class="progress-percentage" style="margin-left: 10px;">0%</span>
@@ -75,11 +75,11 @@ function add_webp_button_below_filter() {
 
         ids.forEach(function(id) {
             $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                url: "<?php echo esc_url(admin_url('admin-ajax.php')); ?>",
                 type: 'POST',
                 data: {
                     action: action,
-                    nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>",
+                    nonce: "<?php echo esc_js(wp_create_nonce('convert_webp_nonce')); ?>",
                     ids: [id],
                     action_choice: 'delete'
                 },
@@ -117,7 +117,7 @@ function add_webp_button_below_filter() {
             return;
         }
 
-        if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
+        if (confirm('With optimization you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
             optimizeImages(selectedIds, 'convert_to_webp_multiple');
         }
     });
@@ -128,13 +128,13 @@ function add_webp_button_below_filter() {
             return;
         }
 
-        if (confirm('With optimisation you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
+        if (confirm('With optimization you are about to permanently delete these images from your site. This action cannot be undone. "Cancel" to stop, "OK" to delete.')) {
             $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                url: "<?php echo esc_url(admin_url('admin-ajax.php')); ?>",
                 type: 'POST',
                 data: {
                     action: 'get_all_image_ids',
-                    nonce: "<?php echo wp_create_nonce('convert_webp_nonce'); ?>"
+                    nonce: "<?php echo esc_js(wp_create_nonce('convert_webp_nonce')); ?>"
                 },
                 success: function(response) {
                     if (response.success) {
@@ -156,6 +156,11 @@ function add_webp_button_below_filter() {
 add_action('wp_ajax_get_all_image_ids', 'get_all_image_ids');
 function get_all_image_ids() {
     check_ajax_referer('convert_webp_nonce', 'nonce');
+
+    // Ensure the current user has the necessary capability
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(__('Unauthorized user', 'textdomain'));
+    }
 
     $args = array(
         'post_type' => 'attachment',
@@ -179,7 +184,12 @@ add_action('wp_ajax_convert_to_webp_multiple', 'convert_to_webp_multiple');
 function convert_to_webp_multiple() {
     check_ajax_referer('convert_webp_nonce', 'nonce');
 
-    if (!isset($_POST['ids']) || empty($_POST['ids'])) {
+    // Ensure the current user has the necessary capability
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(__('Unauthorized user', 'textdomain'));
+    }
+
+    if (!isset($_POST['ids']) || !is_array($_POST['ids']) || empty($_POST['ids'])) {
         wp_send_json_error(__('No images selected', 'textdomain'));
     }
 
@@ -199,6 +209,11 @@ function convert_to_webp_multiple() {
 add_action('wp_ajax_convert_all_to_webp', 'convert_all_to_webp');
 function convert_all_to_webp() {
     check_ajax_referer('convert_webp_nonce', 'nonce');
+
+    // Ensure the current user has the necessary capability
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(__('Unauthorized user', 'textdomain'));
+    }
 
     $args = array(
         'post_type' => 'attachment',
@@ -303,7 +318,7 @@ function convert_image($source, $destination, $format) {
     // Retrieve maximum dimensions from settings
     $max_width = get_option('max_width', 1000);
     $max_height = get_option('max_height', 1000);
-	$enable_resize = get_option('enable_resize', '1');
+    $enable_resize = get_option('enable_resize', '1');
 
     // Retrieve quality settings from options
     $quality_webp = get_option('quality_webp', 80);
@@ -348,21 +363,21 @@ function convert_image($source, $destination, $format) {
         }
 
         // Resize the image if necessary
-    if ($enable_resize === '1') {
-        $width = imagesx($image);
-        $height = imagesy($image);
-        if ($width > $max_width || $height > $max_height) {
-            $aspect_ratio = $width / $height;
-            if ($max_width / $max_height > $aspect_ratio) {
-                $max_width = $max_height * $aspect_ratio;
-            } else {
-                $max_height = $max_width / $aspect_ratio;
+        if ($enable_resize === '1') {
+            $width = imagesx($image);
+            $height = imagesy($image);
+            if ($width > $max_width || $height > $max_height) {
+                $aspect_ratio = $width / $height;
+                if ($max_width / $max_height > $aspect_ratio) {
+                    $max_width = $max_height * $aspect_ratio;
+                } else {
+                    $max_height = $max_width / $aspect_ratio;
+                }
+                $resized_image = imagecreatetruecolor($max_width, $max_height);
+                imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
+                $image = $resized_image;
             }
-            $resized_image = imagecreatetruecolor($max_width, $max_height);
-            imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
-            $image = $resized_image;
         }
-	}
         imagepalettetotruecolor($image);
         if ($format === 'webp') {
             return imagewebp($image, $destination, $quality_webp); // Use the selected WEBP quality

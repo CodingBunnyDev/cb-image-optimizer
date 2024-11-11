@@ -8,15 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Function to check if the licence is valid
 function io_is_licence_active() {
     $licence_data = get_option( 'coding_bunny_image_optimizer_licence_data', ['key' => '', 'email' => ''] );
-    $licence_key = $licence_data['key'];
-    $licence_email = $licence_data['email'];
+    $licence_key = sanitize_text_field($licence_data['key']);
+    $licence_email = sanitize_email($licence_data['email']);
 
     if ( empty( $licence_key ) || empty( $licence_email ) ) {
         return false;
     }
 
     $response = coding_bunny_image_optimizer_validate_licence( $licence_key, $licence_email );
-    return $response['success'];
+    return isset($response['success']) ? $response['success'] : false;
 }
 
 /**
@@ -50,8 +50,8 @@ function coding_bunny_image_optimizer_settings_page() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
-	
-	$licence_active = io_is_licence_active();
+    
+    $licence_active = io_is_licence_active();
 
     // Update settings if form is submitted
     if ( isset( $_POST['submit'] ) ) {
@@ -63,8 +63,8 @@ function coding_bunny_image_optimizer_settings_page() {
         $convert_format = isset( $_POST['convert_format'] ) ? sanitize_text_field( wp_unslash( $_POST['convert_format'] ) ) : 'webp';
         $enable_resize = isset( $_POST['enable_resize'] ) ? '1' : '0';
         $enable_conversion = isset( $_POST['enable_conversion'] ) ? '1' : '0';
-		$quality_webp = isset( $_POST['quality_webp'] ) ? absint( $_POST['quality_webp'] ) : 80;
-		$quality_avif = isset( $_POST['quality_avif'] ) ? absint( $_POST['quality_avif'] ) : 80;
+        $quality_webp = isset( $_POST['quality_webp'] ) ? absint( $_POST['quality_webp'] ) : 80;
+        $quality_avif = isset( $_POST['quality_avif'] ) ? absint( $_POST['quality_avif'] ) : 80;
 
         // Save selected intermediate image sizes
         $enabled_image_sizes = isset( $_POST['enabled_image_sizes'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['enabled_image_sizes'] ) ) : [];
@@ -75,8 +75,8 @@ function coding_bunny_image_optimizer_settings_page() {
         update_option( 'enable_resize', $enable_resize );
         update_option( 'enable_conversion', $enable_conversion );
         update_option( 'enabled_image_sizes', $enabled_image_sizes );
-		update_option( 'quality_webp', $quality_webp );
-		update_option( 'quality_avif', $quality_avif );
+        update_option( 'quality_webp', $quality_webp );
+        update_option( 'quality_avif', $quality_avif );
     }
 
     // Retrieve current values from options
@@ -93,15 +93,12 @@ function coding_bunny_image_optimizer_settings_page() {
     $using_imagick = extension_loaded( 'imagick' );
 
     if ( $using_gd && $using_imagick ) {
-        // translators: %s: libraries used
         $message = sprintf( __( 'Your site is using the libraries %s', 'coding-bunny-image-optimizer' ), esc_html( 'GD e Imagick' ) );
         $icon = '<span style="color: green;">●</span>';
     } elseif ( $using_imagick ) {
-        // translators: %s: library used
         $message = sprintf( __( 'Your site is using the libraries %s', 'coding-bunny-image-optimizer' ), esc_html( 'Imagick' ) );
         $icon = '<span style="color: green;">●</span>';
     } elseif ( $using_gd ) {
-        // translators: %s: library used
         $message = sprintf( __( 'Your site is using the libraries %s', 'coding-bunny-image-optimizer' ), esc_html( 'GD' ) );
         $icon = '<span style="color: green;">●</span>';
     } else {
@@ -112,7 +109,7 @@ function coding_bunny_image_optimizer_settings_page() {
     ?>
     <div class="wrap">
         <h1><?php esc_html_e( 'CodingBunny Image Optimizer', 'coding-bunny-image-optimizer' ); ?> 
-           <span style="font-size: 10px;">v<?php echo CODING_BUNNY_IMAGE_OPTIMIZER_VERSION; ?></span></h1>
+           <span style="font-size: 10px;">v<?php echo esc_html( CODING_BUNNY_IMAGE_OPTIMIZER_VERSION ); ?></span></h1>
         <p><?php echo wp_kses_post( $icon ) . ' ' . esc_html( $message ); ?></p>
         <form method="post" action="">
             <?php wp_nonce_field( 'coding_bunny_image_settings_update' ); ?>			
@@ -243,7 +240,6 @@ function coding_bunny_image_optimizer_resize_image( $file ) {
     // Get image dimensions
     $image_size = getimagesize( $file['file'] );
     if ( ! $image_size ) {
-        /* translators: %s: file URL */
         error_log( sprintf( __( 'Error: Unable to get image dimensions for file %s', 'coding-bunny-image-optimizer' ), esc_url( $file['file'] ) ) );
         return $file;
     }
@@ -256,19 +252,16 @@ function coding_bunny_image_optimizer_resize_image( $file ) {
     // Resize image while maintaining aspect ratio
     $image_editor = wp_get_image_editor( $file['file'] );
     if ( is_wp_error( $image_editor ) ) {
-        /* translators: %s: file URL */
         error_log( sprintf( __( 'Error: Unable to create image editor for file %s', 'coding-bunny-image-optimizer' ), esc_url( $file['file'] ) ) );
         return $file;
     }
     $result = $image_editor->resize( $max_width, $max_height, false );
     if ( is_wp_error( $result ) ) {
-        /* translators: %s: file URL */
         error_log( sprintf( __( 'Error: Unable to get image dimensions for file %s', 'coding-bunny-image-optimizer' ), esc_url( $file['file'] ) ) );
         return $file;
     }
     $saved = $image_editor->save( $file['file'] );
     if ( is_wp_error( $saved ) ) {
-        /* translators: %s: file URL */
         error_log( sprintf( __( 'Error: Unable to save resized image for file %s', 'coding-bunny-image-optimizer' ), esc_url( $file['file'] ) ) );
     }
 
@@ -312,22 +305,21 @@ function coding_bunny_image_optimizer_convert_image($upload) {
 }
 
 // Disable intermediate image sizes
-
 add_filter( 'intermediate_image_sizes_advanced', 'coding_bunny_image_optimizer_disable_intermediate_image_sizes' );
 function coding_bunny_image_optimizer_disable_intermediate_image_sizes( $sizes ) {
     
-	// Check licence status
+    // Check licence status
     $licence_active = io_is_licence_active();
     
     // If the licence is not active, generate all intermediate images
     if ( ! $licence_active ) {
-        return $sizes; // Restituisce tutte le dimensioni intermedie
+        return $sizes;
     }
     
     // If the licence is active, respect user settings
     $enabled_image_sizes = get_option( 'enabled_image_sizes', array() );
     if ( empty( $enabled_image_sizes ) ) {
-        return array(); // Non creare miniature se nessuna è selezionata
+        return array();
     }
     
     // Only keep dimensions enabled

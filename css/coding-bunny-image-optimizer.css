@@ -1,39 +1,48 @@
 :root {
     --cb-violet: #A98ED6;
     --cb-violet-dark: #7F54B2;
-	--cb-violet-light: #F6F5FF;
-	--cb-white: #FFFFFF;
-	--cb-grey-dark: #2B3337;
+    --cb-violet-light: #F6F5FF;
+    --cb-white: #FFFFFF;
+    --cb-grey-dark: #2B3337;
 }
 
-/* Wrap Styles */
+/* General Styles */
 .wrap h1 {
-	font-size: 26px;
-	font-weight: 700;
+    font-size: 26px;
+    font-weight: 700;
 }
 
+/* Flexbox Container Styles */
 .coding-bunny-flex-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .coding-bunny-flex-item {
-        margin-right: 15px;
-    }
-
-    .coding-bunny-flex-item:last-child {
-        margin-right: 0;
-    }
-
-    input[type="email"], 
-    input[type="text"] {
-        width: 200px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-    label {
-        margin-right: 5px;
-    }
+.coding-bunny-flex-item {
+    margin-right: 15px;
+}
+
+.coding-bunny-flex-item:last-child {
+    margin-right: 0;
+}
+
+/* Input Styles for Text and Email */
+input[type="email"], 
+input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    border: 1px solid var(--cb-violet);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+/* Label Styles */
+label {
+    margin-right: 5px;
+}
 
 /* Table Styles */
 .form-table label {
@@ -41,13 +50,16 @@
 }
 
 .form-table input[type="number"] {
-    width: 80px;
+    width: 100%;
+    max-width: 100px;
+    padding: 8px;
+    border: 1px solid var(--cb-violet);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
 }
 
-.form-table th {
-    vertical-align: middle;
-}
-
+.form-table th,
 .form-table td {
     vertical-align: middle;
 }
@@ -94,6 +106,7 @@
     transform: translateX(16px); /* Move the ball to the right */
 }
 
+/* Disabled Label Styles */
 .disabled-label {
     opacity: 0.5;
     pointer-events: none;
@@ -103,60 +116,32 @@
     cursor: not-allowed;
 }
 
-input[type="email"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    border: 1px solid var(--cb-violet);
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-}
-
-input[type="text"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    border: 1px solid var(--cb-violet);
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-}
-
-input[type="number"] {
-    width: 100%;
-    max-width: 100px;
-    padding: 8px;
-    border: 1px solid var(--cb-violet);
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-}
-
+/* Button Styles */
 .wp-core-ui .button-primary {
     background: var(--cb-violet-dark);
     border-color: var(--cb-violet-dark);
     color: var(--cb-white);
-	padding: 7px 10px;
+    padding: 7px 10px;
 }
 
 .wp-core-ui .button-primary:hover {
     background: var(--cb-violet);
     border-color: var(--cb-violet);
     color: var(--cb-white);
-	padding: 7px 10px;
+    padding: 7px 10px;
 }
 
+/* Range Input Styles */
 input[type="range"] {
     -webkit-appearance: none;
-    width: 10%x;
+    width: 200px;
     height: 10px;
     background: var(--cb-white);
-	border: 1px solid var(--cb-violet);
+    border: 1px solid var(--cb-violet);
     outline: none;
     opacity: 1;
     transition: opacity 0.2s;
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
 input[type="range"]:hover {
