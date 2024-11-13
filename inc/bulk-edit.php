@@ -328,8 +328,12 @@ function convert_image($source, $destination, $format) {
         // Use Imagick if available
         $imagick = new Imagick($source);
 
+        // Get image dimensions
+        $width = $imagick->getImageWidth();
+        $height = $imagick->getImageHeight();
+
         // Resize the image if necessary
-        if ($enable_resize === '1') {
+        if ($enable_resize === '1' && ($width > $max_width || $height > $max_height)) {
             $imagick->resizeImage($max_width, $max_height, Imagick::FILTER_LANCZOS, 1, true);
         }
 
@@ -362,21 +366,21 @@ function convert_image($source, $destination, $format) {
             return false;
         }
 
+        // Get image dimensions
+        $width = imagesx($image);
+        $height = imagesy($image);
+
         // Resize the image if necessary
-        if ($enable_resize === '1') {
-            $width = imagesx($image);
-            $height = imagesy($image);
-            if ($width > $max_width || $height > $max_height) {
-                $aspect_ratio = $width / $height;
-                if ($max_width / $max_height > $aspect_ratio) {
-                    $max_width = $max_height * $aspect_ratio;
-                } else {
-                    $max_height = $max_width / $aspect_ratio;
-                }
-                $resized_image = imagecreatetruecolor($max_width, $max_height);
-                imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
-                $image = $resized_image;
+        if ($enable_resize === '1' && ($width > $max_width || $height > $max_height)) {
+            $aspect_ratio = $width / $height;
+            if ($max_width / $max_height > $aspect_ratio) {
+                $max_width = $max_height * $aspect_ratio;
+            } else {
+                $max_height = $max_width / $aspect_ratio;
             }
+            $resized_image = imagecreatetruecolor($max_width, $max_height);
+            imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
+            $image = $resized_image;
         }
         imagepalettetotruecolor($image);
         if ($format === 'webp') {

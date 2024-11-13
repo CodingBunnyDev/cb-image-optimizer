@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the plugin version
-define( 'CODING_BUNNY_IMAGE_OPTIMIZER_VERSION', '1.2.1' );
+define( 'CODING_BUNNY_IMAGE_OPTIMIZER_VERSION', '1.2.2' );
 
 // Function to add a submenu item for licence validation
 function coding_bunny_image_optimizer_submenu() {

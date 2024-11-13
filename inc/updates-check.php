@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Function to check if a new version of the plugin is available
 function coding_bunny_image_optimizer_check_version() {
-    $current_version = defined('CODING_BUNNY_IMAGE_OPTIMIZER_VERSION') ? sanitize_text_field(CODING_BUNNY_IMAGE_OPTIMIZER_VERSION) : '1.0.0'; // Current plugin version with default value
+    $current_version = defined('CODING_BUNNY_IMAGE_OPTIMIZER_VERSION') ? sanitize_text_field(CODING_BUNNY_IMAGE_OPTIMIZER_VERSION) : '1.2.2'; // Current plugin version with default value
     $url = esc_url_raw('https://www.coding-bunny.com/plugins-updates/io-check-version.php'); // URL of the script to check for updates
 
     // Perform a request to the server to check the version
