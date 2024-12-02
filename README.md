@@ -3,7 +3,7 @@
 ![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)
 ![WordPress Version](https://img.shields.io/badge/WordPress-%3E%3D%206.0-blue.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.0-orange.svg)
-![Version](https://img.shields.io/badge/version-1.2.2-green.svg)
+![Version](https://img.shields.io/badge/version-1.2.3-green.svg)
 
 **CodingBunny Image Optimizer** is a WordPress plugin designed to enhance website performance by automatically compressing and optimizing images upon upload. This plugin makes it easy to maintain fast loading speeds and provides options for a PRO version with advanced features.
 
@@ -65,6 +65,18 @@ This plugin is licensed under the [GNU General Public License v3.0](https://www.
 [Support](https://coding-bunny.com/support)
 
 ## Changelog
+
+### 1.2.3
+- New - Added Thai language support.
+- Improvement - General code improvement.
+- Fix - Fixed Bulk Resize translation problem.
+
+### 1.2.2
+- Fix - Fixed the error that allowed images to be enlarged with Imagick.
+
+### 1.2.1
+- New - Added conversion status bar.
+- Improvement - General code safety improvement.
 
 ### 1.2.0
 - New - Added conversion quality setting.
