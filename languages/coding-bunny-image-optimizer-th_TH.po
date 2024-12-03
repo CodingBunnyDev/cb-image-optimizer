@@ -1,0 +1,238 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CodingBunny Image Optimizer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-30 16:52+0000\n"
+"PO-Revision-Date: 2024-11-30 18:01+0100\n"
+"Last-Translator: Matteo De Maria <info@dmmwebdesign.it>\n"
+"Language-Team: \n"
+"Language: th_TH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2\n"
+"X-Domain: coding-bunny-image-optimizer\n"
+
+#: inc/updates-check.php:47
+#, php-format
+msgid ""
+"A new version (%s) of the <b>CodingBunny Image Optimizer</b> plugin is available. "
+"<a href=\"%s\">Download the latest version here.</a>"
+msgstr ""
+"ปลั๊กอิน <b>CodingBunny Image Optimizer</b> เวอร์ชันใหม่ (%s) พร้อมให้บริการแล้ว <a "
+"href=\"%s\">ดาวน์โหลดเวอร์ชันล่าสุดได้ที่นี่</a>"
+
+#: inc/licence-validation.php:123
+msgid "Activate licence"
+msgstr "เปิดใช้งานใบอนุญาต"
+
+#: inc/licence-validation.php:131
+msgid "Active licence"
+msgstr "ใบอนุญาตที่ใช้งานอยู่"
+
+#: inc/settings-page.php:132
+msgid "AVIF"
+msgstr "AVIF"
+
+#: inc/settings-page.php:147
+msgid "AVIF Quality"
+msgstr "AVIF คุณภาพ"
+
+#: inc/settings-page.php:191
+msgid "Choose which image formats WordPress should automatically create."
+msgstr "เลือกรูปแบบรูปภาพที่ WordPress ควรสร้างโดยอัตโนมัติ"
+
+#. Author of the plugin
+msgid "CodingBunny"
+msgstr "CodingBunny"
+
+#. Name of the plugin
+#: inc/admin-menu.php:9 inc/settings-page.php:100 inc/licence-validation.php:95
+msgid "CodingBunny Image Optimizer"
+msgstr "CodingBunny Image Optimizer"
+
+#: inc/settings-page.php:124
+msgid "Conversion format"
+msgstr "รูปแบบการแปลง"
+
+#: inc/settings-page.php:107
+msgid "Convert"
+msgstr "แปลง"
+
+#: inc/settings-page.php:119
+msgid "Convert images to the selected format."
+msgstr "แปลงภาพเป็นรูปแบบที่เลือก"
+
+#: inc/settings-page.php:110
+msgid "Convert JPEG, PNG and GIF images to WEBP or AVIF format."
+msgstr "แปลงภาพ JPEG, PNG และ GIF เป็นรูปแบบ WEBP หรือ AVIF"
+
+#: inc/licence-validation.php:119
+msgid "Deactivate licence"
+msgstr "ปิดใช้งานใบอนุญาต"
+
+#: inc/settings-page.php:188
+msgid "Default Image Sizes"
+msgstr "ขนาดภาพเริ่มต้น"
+
+#: inc/licence-validation.php:102
+msgid "Email account:"
+msgstr "บัญชีอีเมล:"
+
+#: inc/settings-page.php:114
+msgid "Enable conversion"
+msgstr "เปิดใช้งานการแปลง"
+
+#: inc/settings-page.php:167
+msgid "Enable resizing"
+msgstr "เปิดใช้งานการปรับขนาด"
+
+#: inc/settings-page.php:253
+#, php-format
+msgid "Error: Unable to create image editor for file %s"
+msgstr "ข้อผิดพลาด: ไม่สามารถสร้างโปรแกรมแก้ไขรูปภาพสำหรับไฟล์ %s ได้"
+
+#: inc/settings-page.php:243 inc/settings-page.php:258
+#, php-format
+msgid "Error: Unable to get image dimensions for file %s"
+msgstr "ข้อผิดพลาด: ไม่สามารถรับขนาดภาพสำหรับไฟล์ %s ได้"
+
+#: inc/settings-page.php:263
+#, php-format
+msgid "Error: Unable to save resized image for file %s"
+msgstr "ข้อผิดพลาด: ไม่สามารถบันทึกรูปภาพที่ปรับขนาดแล้วสำหรับไฟล์ %s"
+
+#: coding-bunny-image-optimizer.php:58
+msgid "Get CodingBunny Image Optimizer PRO!"
+msgstr "รับ CodingBunny Image Optimizer PRO!"
+
+#. Parent slug
+#: inc/licence-validation.php:27 inc/licence-validation.php:28
+msgid "Go Pro"
+msgstr "Go Pro"
+
+#: inc/licence-validation.php:145
+msgid "Having problems with your licence? Contact our support: "
+msgstr "มีปัญหากับใบอนุญาตของคุณหรือไม่ ติดต่อฝ่ายสนับสนุนของเรา: "
+
+#. Author URI of the plugin
+msgid "https://coding-bunny.com"
+msgstr "https://coding-bunny.com"
+
+#. URI of the plugin
+msgid "https://coding-bunny.com/image-optimizer/"
+msgstr "https://coding-bunny.com/image-optimizer/"
+
+#. Page title
+#: inc/admin-menu.php:10
+msgid "Image Optimizer"
+msgstr "Image Optimizer"
+
+#: inc/settings-page.php:195
+msgid "Image size"
+msgstr "ขนาดภาพ"
+
+#: inc/licence-validation.php:176
+msgid "Incorrect licence key or email"
+msgstr "รหัสใบอนุญาตหรืออีเมลไม่ถูกต้อง"
+
+#: inc/licence-validation.php:80
+msgid "Incorrect licence key or email: "
+msgstr "รหัสใบอนุญาตหรืออีเมลไม่ถูกต้อง: "
+
+#: inc/licence-validation.php:108
+msgid "Licence Key:"
+msgstr "รหัสใบอนุญาต:"
+
+#: inc/licence-validation.php:89
+msgid "Licence successfully deactivated!"
+msgstr "ปิดใช้งานใบอนุญาตสําเร็จแล้ว!"
+
+#: inc/licence-validation.php:77
+msgid "Licence successfully validated!"
+msgstr "ใบอนุญาตตรวจสอบสําเร็จแล้ว!"
+
+#: inc/licence-validation.php:12 inc/licence-validation.php:13
+#: inc/licence-validation.php:97
+msgid "Manage Licence"
+msgstr "จัดการใบอนุญาต"
+
+#: inc/settings-page.php:181
+msgid "Max. height (px)"
+msgstr "สูงสุด ความสูง (พิกเซล)"
+
+#: inc/settings-page.php:177
+msgid "Max. width (px)"
+msgstr "สูงสุด ความกว้าง (พิกเซล)"
+
+#: inc/bulk-edit.php:25
+msgid "Optimize All Images"
+msgstr "ปรับภาพทั้งหมดให้เหมาะสม"
+
+#: inc/bulk-edit.php:24
+msgid "Optimize Selected Images"
+msgstr "ปรับภาพที่เลือกให้เหมาะสม"
+
+#: inc/settings-page.php:219 inc/licence-validation.php:149
+msgid "Powered by CodingBunny"
+msgstr "ขับเคลื่อนโดย CodingBunny"
+
+#: inc/settings-page.php:160
+msgid "Resize"
+msgstr "ปรับขนาด"
+
+#: inc/settings-page.php:172
+msgid "Resizes images to the size below."
+msgstr "ปรับขนาดรูปภาพให้มีขนาดด้านล่าง"
+
+#: inc/settings-page.php:163
+msgid "Sets the maximum size of width and height of uploaded images."
+msgstr "กำหนดขนาดความกว้างและความสูงสูงสุดของรูปภาพที่อัปโหลด"
+
+#: coding-bunny-image-optimizer.php:49
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+#. Description of the plugin
+msgid "Speed up your site! Compress and optimize images automatically."
+msgstr "เร่งความเร็วไซต์ของคุณ! บีบอัดและปรับภาพให้เหมาะสมโดยอัตโนมัติ"
+
+#: inc/settings-page.php:128
+msgid "WebP"
+msgstr "WebP"
+
+#: inc/settings-page.php:137
+msgid "WEBP Quality"
+msgstr "WEBP คุณภาพ"
+
+#: inc/licence-validation.php:196
+#, php-format
+msgid ""
+"Your <b>CodingBunny Image Optimizer</b> licence expires in <b>%d days</b>! <a "
+"href=\"%s\">Renew now.</a>"
+msgstr ""
+"ใบอนุญาต <b>CodingBunny Image Optimizer</b> ของคุณจะหมดอายุใน <b>%d วัน</b> ! <a "
+"href=\"%s\">ต่ออายุทันที</a>"
+
+#: inc/licence-validation.php:133
+msgid "Your licence expires on:"
+msgstr "ใบอนุญาตของคุณหมดอายุเมื่อ:"
+
+#: inc/settings-page.php:94
+msgid ""
+"Your site does not use the libraries required for the correct functioning of the "
+"plugin."
+msgstr "ไซต์ของคุณไม่ได้ใช้ไลบรารีที่จำเป็นสำหรับการทำงานที่ถูกต้องของปลั๊กอิน"
+
+#: inc/settings-page.php:85 inc/settings-page.php:88 inc/settings-page.php:91
+#, php-format
+msgid "Your site is using the libraries %s"
+msgstr "ไซต์ของคุณกำลังใช้ไลบรารี %s"
+
+#~ msgid "Intermediate sizes"
+#~ msgstr "ขนาดกลาง"
+
+#~ msgid "Select intermediate dimensions to be created."
+#~ msgstr "เลือกมิติข้อมูลกลางที่จะสร้าง"

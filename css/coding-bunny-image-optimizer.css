@@ -6,10 +6,26 @@
     --cb-grey-dark: #2B3337;
 }
 
-/* General Styles */
+/* Header styling */
 .wrap h1 {
     font-size: 26px;
     font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.wrap h3 {
+    font-size: 20px;
+    font-weight: 700;
+    align-items: center;
+    display: flex;
+	gap: 5px;
+}
+
+.dashicons {
+	color: var(--cb-white);
+	background-color: var(--cb-violet-dark);
+	padding: 5px;
+	border-radius: 5px;
 }
 
 /* Flexbox Container Styles */
@@ -32,7 +48,7 @@ input[type="email"],
 input[type="text"] {
     width: 100%;
     max-width: 300px;
-    padding: 8px;
+    padding: 3px;
     border: 1px solid var(--cb-violet);
     border-radius: 4px;
     font-size: 14px;
@@ -52,7 +68,7 @@ label {
 .form-table input[type="number"] {
     width: 100%;
     max-width: 100px;
-    padding: 8px;
+    padding: 3px;
     border: 1px solid var(--cb-violet);
     border-radius: 4px;
     font-size: 14px;
@@ -121,14 +137,14 @@ label {
     background: var(--cb-violet-dark);
     border-color: var(--cb-violet-dark);
     color: var(--cb-white);
-    padding: 7px 10px;
+    padding: 3px 10px;
 }
 
 .wp-core-ui .button-primary:hover {
     background: var(--cb-violet);
     border-color: var(--cb-violet);
     color: var(--cb-white);
-    padding: 7px 10px;
+    padding: 3px 10px;
 }
 
 /* Range Input Styles */
