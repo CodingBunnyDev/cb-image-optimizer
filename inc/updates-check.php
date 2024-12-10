@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Function to check if a new version of the plugin is available
 function coding_bunny_image_optimizer_check_version() {
-	$current_version = defined('CODING_BUNNY_IMAGE_OPTIMIZER_VERSION') ? sanitize_text_field(CODING_BUNNY_IMAGE_OPTIMIZER_VERSION) : '1.2.3';
+	$current_version = defined('CODING_BUNNY_IMAGE_OPTIMIZER_VERSION') ? sanitize_text_field(CODING_BUNNY_IMAGE_OPTIMIZER_VERSION) : '1.3.0';
 	$url = esc_url_raw('https://www.coding-bunny.com/plugins-updates/io-check-version.php');
 
 	$response = wp_remote_post($url, [
@@ -44,7 +44,8 @@ function coding_bunny_image_optimizer_version_update_notice() {
 		echo '<div class="notice notice-warning is-dismissible">';
 		echo '<p>';
 		echo sprintf(
-		__('A new version (%s) of the <b>CodingBunny Image Optimizer</b> plugin is available. <a href="%s">Download the latest version here.</a>', 'coding-bunny-image-optimizer'),
+		/* translators: 1: Latest plugin version, 2: Download URL. */
+		__('A new version (%1$s) of the <b>CodingBunny Image Optimizer</b> plugin is available. <a href="%2$s">Download the latest version here.</a>', 'coding-bunny-image-optimizer'),
 		esc_html($update_check['latest_version']),
 		esc_url($update_check['download_url'])
 	);

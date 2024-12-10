@@ -7,15 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Function to check if the licence is valid
 function io_is_licence_active() {
 	$licence_data = get_option( 'coding_bunny_image_optimizer_licence_data', ['key' => '', 'email' => ''] );
-	$licence_key = sanitize_text_field($licence_data['key']);
-	$licence_email = sanitize_email($licence_data['email']);
+	$licence_key = sanitize_text_field( $licence_data['key'] );
+	$licence_email = sanitize_email( $licence_data['email'] );
 
 	if ( empty( $licence_key ) || empty( $licence_email ) ) {
 		return false;
 	}
 
 	$response = coding_bunny_image_optimizer_validate_licence( $licence_key, $licence_email );
-	return isset($response['success']) ? $response['success'] : false;
+	return isset( $response['success'] ) ? $response['success'] : false;
 }
 
 // Retrieve actual dimensions of intermediate image sizes.
@@ -29,7 +29,7 @@ function coding_bunny_get_intermediate_image_sizes_with_dimensions() {
 			$sizes[ $size ] = $data[ $size ];
 		} else {
 			$sizes[ $size ] = [
-				'width'  => get_option( $size . '_size_w' ),
+				'width' => get_option( $size . '_size_w' ),
 				'height' => get_option( $size . '_size_h' ),
 			];
 		}
@@ -38,15 +38,25 @@ function coding_bunny_get_intermediate_image_sizes_with_dimensions() {
 	return $sizes;
 }
 
+// Function to toggle unused images
+function toggle_unused_images() {
+	if ( isset( $_POST['toggle_unused_images'] ) ) {
+		$disable_unused_images = sanitize_text_field( $_POST['toggle_unused_images'] ) === '1' ? '1' : '0';
+		update_option( 'disable_unused_images', $disable_unused_images );
+	}
 
-// Callback function to display content of settings page
+	return get_option( 'disable_unused_images', '0' );
+}
+add_action( 'admin_post_toggle_unused_images', 'toggle_unused_images' );
 
+// Add toggle switch to settings page
 function coding_bunny_image_optimizer_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
 	$licence_active = io_is_licence_active();
+	$disable_unused_images = get_option('disable_unused_images', '0');
 
 	if ( isset( $_POST['submit'] ) ) {
 		check_admin_referer( 'coding_bunny_image_settings_update' );
@@ -59,6 +69,7 @@ function coding_bunny_image_optimizer_settings_page() {
 		$quality_webp = isset( $_POST['quality_webp'] ) ? absint( $_POST['quality_webp'] ) : 80;
 		$quality_avif = isset( $_POST['quality_avif'] ) ? absint( $_POST['quality_avif'] ) : 80;
 		$enabled_image_sizes = isset( $_POST['enabled_image_sizes'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['enabled_image_sizes'] ) ) : [];
+		$disable_unused_images = isset( $_POST['toggle_unused_images'] ) ? '1' : '0';
 
 		update_option( 'max_width', $max_width );
 		update_option( 'max_height', $max_height );
@@ -68,6 +79,7 @@ function coding_bunny_image_optimizer_settings_page() {
 		update_option( 'enabled_image_sizes', $enabled_image_sizes );
 		update_option( 'quality_webp', $quality_webp );
 		update_option( 'quality_avif', $quality_avif );
+		update_option( 'disable_unused_images', $disable_unused_images );
 	}
 
 	$max_width = get_option( 'max_width', 1000 );
@@ -211,6 +223,27 @@ function coding_bunny_image_optimizer_settings_page() {
 								<?php
 							}
 							?>
+						</td>
+					</tr>
+				</table>
+				<hr>
+				<h3>
+					<span class="dashicons dashicons-dismiss"></span>
+					<?php esc_html_e( 'Unused Image Finder', 'coding-bunny-image-optimizer' ); ?>
+					<span style="font-size: 10px; color:red;"><?php echo esc_html( 'BETA', 'coding-bunny-image-optimizer' ); ?></span>
+				</h3>
+				<p>
+					<?php esc_html_e( 'Detect and mark unused images on your site.', 'coding-bunny-image-optimizer' ); ?>
+				</p>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="toggle-unused-images"><?php esc_html_e( 'Enable Toolbar', 'coding-bunny-image-optimizer' ); ?></label></th>
+						<td>
+							<label class="toggle-label <?php echo esc_attr( $is_disabled ? 'disabled-label' : '' ); ?>">
+								<input type="checkbox" class="toggle" id="toggle-unused-images" name="toggle_unused_images" value="0" <?php checked( $disable_unused_images, '1' ); ?><?php echo ( ! $licence_active ) ? 'disabled' : ''; ?> />
+								<span class="slider"></span>
+								<?php esc_html_e( 'Enables or disables the toolbar in the media library.', 'coding-bunny-image-optimizer' ); ?>
+							</label>
 						</td>
 					</tr>
 				</table>

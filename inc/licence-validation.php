@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CODING_BUNNY_IMAGE_OPTIMIZER_VERSION', '1.2.3' );
+define( 'CODING_BUNNY_IMAGE_OPTIMIZER_VERSION', '1.3.0' );
 
 function coding_bunny_image_optimizer_submenu() {
 	add_submenu_page(
@@ -97,7 +97,7 @@ if ( isset( $_POST['deactivate_licence'] ) ) {
 		<h3>
 			<span class="dashicons dashicons-admin-network"></span>
 			<?php esc_html_e( "Manage Licence", 'coding-bunny-image-optimizer' ); ?>
-	</h3>
+		</h3>
 		<form method="post" action="">
 			<?php wp_nonce_field('coding_bunny_licence_validation'); ?>
 			<div class="coding-bunny-flex-container">
@@ -196,7 +196,8 @@ function coding_bunny_image_optimizer_licence_expiration_notice() {
 			add_action( 'admin_notices', function() use ( $days_until_expiration ) {
 				echo '<div class="notice notice-warning is-dismissible"><p>' . 
 					sprintf( 
-				__( 'Your <b>CodingBunny Image Optimizer</b> licence expires in <b>%d days</b>! <a href="%s">Renew now.</a>', 'coding-bunny-image-optimizer' ), 
+				/* translators: update message */
+				__( 'Your <b>CodingBunny Image Optimizer</b> licence expires in <b>%1$d days</b>! <a href="%2$s">Renew now.</a>', 'coding-bunny-image-optimizer' ), 
 				$days_until_expiration, 
 				esc_url( 'mailto:support@coding-bunny.com' ) 
 					) . 
