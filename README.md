@@ -3,7 +3,7 @@
 ![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)
 ![WordPress Version](https://img.shields.io/badge/WordPress-%3E%3D%206.0-blue.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.0-orange.svg)
-![Version](https://img.shields.io/badge/version-1.2.3-green.svg)
+![Version](https://img.shields.io/badge/version-1.3.0-green.svg)
 
 **CodingBunny Image Optimizer** is a WordPress plugin designed to enhance website performance by automatically compressing and optimizing images upon upload. This plugin makes it easy to maintain fast loading speeds and provides options for a PRO version with advanced features.
 
