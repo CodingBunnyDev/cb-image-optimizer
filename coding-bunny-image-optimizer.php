@@ -4,7 +4,7 @@
 * Plugin Name: CodingBunny Image Optimizer
 * Plugin URI:  https://coding-bunny.com/image-optimizer/
 * Description: Speed up your site! Compress and optimize images automatically.
-* Version:     1.2.3
+* Version:     1.3.0
 * Requires at least: 6.0
 * Requires PHP: 8.0
 * Author:      CodingBunny
@@ -21,21 +21,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 $inc_dir = plugin_dir_path( __FILE__ ) . 'inc/';
 
 $files_to_include = [
-	'admin-menu.php',        // Handles the admin menu for the plugin
-	'licence-validation.php',// Licence page
-	'updates-check.php',     // Updates check
-	'settings-page.php',     // Defines the settings page for the plugin
-	'bulk-edit.php',         // Bulk edit function
-	'enqueue-scripts.php'    // Enqueues the necessary CSS and JS files
+	'admin-menu.php',
+	'licence-validation.php',
+	'updates-check.php',
+	'settings-page.php',
+	'bulk-edit.php',
+	'unused-image.php',
+	'enqueue-scripts.php'
 ];
 
 foreach ( $files_to_include as $file ) {
 	$file_path = $inc_dir . $file;
 	if ( file_exists( $file_path ) ) {
 		require_once $file_path;
-	} else {
-		error_log("File not found: $file_path");
-	}
+	} 
 }
 
 // Load plugin text domain for translations

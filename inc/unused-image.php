@@ -8,8 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action('admin_footer-upload.php', 'cb_add_toolbar_media_library');
 
 function cb_add_toolbar_media_library() {
+    $licence_active = io_is_licence_active();
     $disable_unused_images = get_option('disable_unused_images', '1');
-    if ($disable_unused_images === '0') {
+    
+    if (!$licence_active || $disable_unused_images === '0') {
         return;
     }
     ?>

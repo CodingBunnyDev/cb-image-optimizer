@@ -56,7 +56,7 @@ function coding_bunny_image_optimizer_settings_page() {
 	}
 
 	$licence_active = io_is_licence_active();
-	$disable_unused_images = get_option('disable_unused_images', '0');
+	$disable_unused_images = $licence_active ? get_option('disable_unused_images', '0') : '0';
 
 	if ( isset( $_POST['submit'] ) ) {
 		check_admin_referer( 'coding_bunny_image_settings_update' );
@@ -239,7 +239,7 @@ function coding_bunny_image_optimizer_settings_page() {
 					<tr valign="top">
 						<th scope="row"><label for="toggle-unused-images"><?php esc_html_e( 'Enable Toolbar', 'coding-bunny-image-optimizer' ); ?></label></th>
 						<td>
-							<label class="toggle-label <?php echo esc_attr( $is_disabled ? 'disabled-label' : '' ); ?>">
+							<label class="toggle-label <?php echo ( ! $licence_active ) ? 'disabled-label' : ''; ?>">
 								<input type="checkbox" class="toggle" id="toggle-unused-images" name="toggle_unused_images" value="0" <?php checked( $disable_unused_images, '1' ); ?><?php echo ( ! $licence_active ) ? 'disabled' : ''; ?> />
 								<span class="slider"></span>
 								<?php esc_html_e( 'Enables or disables the toolbar in the media library.', 'coding-bunny-image-optimizer' ); ?>
